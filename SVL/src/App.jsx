@@ -35,7 +35,7 @@ function Home() {
       ideal: "Job change, purpose, stagnation",
       duration: "30–45 minutes",
       mode: "Chat / Audio",
-      price: "₹1000",
+      price: "₹1",
       image: Card1,
     },
     {
