@@ -79,16 +79,24 @@
 // }
 // startServer();
 
-
+// const { MongoClient, Collection } = require("mongodb");
+// const mongoUrl = process.env.MONGO_URL;
+// const client = new MongoClient(mongoUrl);
 const express = require('express')
 
 const app = express();
 
-app.use(("/test"),(req,res)=>{
-
-    res.send("Hello from server")
-
+app.get(("/v1/:user"),(req,res)=>{
+    console.log(req.params)
+    res.send({name:"Anand"})
 })
+
+app.post(("/v1/user"),(req,res)=>{
+    res.send("saveData to database")
+})
+
+
+
 app.listen(7778,()=>{
     console.log("hello")
 })
