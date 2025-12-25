@@ -24,7 +24,7 @@ const Booking = () => {
 
   if (!card) return null;
 
-  const UPI_VPA = "yourvpa@bank"; // replace with your UPI ID
+  const UPI_VPA = "7361015759@ybl"; // replace with your UPI ID
   const UPI_NAME = "Anisha Jha";
   const UPI_AMOUNT = card.price.replace("₹", "");
   const UPI_NOTE = encodeURIComponent(card.title);
