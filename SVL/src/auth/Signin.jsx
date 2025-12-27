@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Img from "../assets/791da27d-feb8-47ae-9c10-99d5c5595f3c.jpeg";
 
@@ -67,6 +68,8 @@ const Signin = () => {
             >
               Login
             </button>
+            
+            <Link to = "/signup">Signup</Link>
           </>
         )}
 
@@ -86,6 +89,7 @@ const Signin = () => {
             >
               Verify OTP
             </button>
+
           </>
         )}
       </div>

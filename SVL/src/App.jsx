@@ -15,6 +15,7 @@ import Card2 from "./assets/Card2.jpeg";
 import Signin from "./auth/Signin";
 import Booking from "./pages/Bookings";
 import Protectedroute from "./components/Protectedroute";
+import Signup from "./auth/Signup";
 
 function Home() {
   const navigate = useNavigate();
@@ -238,6 +239,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Signin/>} />
+        <Route path ="/signup" element={<Signup/>}/>
         <Route path="/booking" element={
            <Protectedroute>
            <Booking/>
