@@ -1,7 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState ,} from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -35,8 +39,10 @@ const Signup = () => {
 
             if (res.data.message === "User already exists") {
                 alert("User already exists! Please login.");
+
             } else {
                 alert("Signup successful!");
+                navigate('/login')
                 // Optionally clear the form
                 setFormData({
                     firstName: "",
@@ -48,8 +54,6 @@ const Signup = () => {
                     birthTime: "",
                     gender: "",
                 });
-
-                alert("Signup successful!");
             }
         } catch (err) {
             console.error("Signup error:", err.response?.data || err.message);

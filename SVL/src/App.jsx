@@ -1,5 +1,7 @@
 import "./App.css";
-import img from "./assets/b89e4f9c-86be-45f7-991d-139456606a16.jpeg";
+// import img from "./assets/b89e4f9c-86be-45f7-991d-139456606a16.jpeg";
+import Navbar from "./components/Navbar";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,6 +18,7 @@ import Signin from "./auth/Signin";
 import Booking from "./pages/Bookings";
 import Protectedroute from "./components/Protectedroute";
 import Signup from "./auth/Signup";
+import { useEffect, useState } from "react";
 
 function Home() {
   const navigate = useNavigate();
@@ -25,58 +28,73 @@ function Home() {
     if (!user) {
       navigate("/login");
     }
-    
   };
 
-  const services = [
-    {
-      title: "💼 Career & Purpose Reading",
-      description:
-        "For career confusion, direction, decisions, and growth blocks.",
-      ideal: "Job change, purpose, stagnation",
-      duration: "30–45 minutes",
-      mode: "Chat / Audio",
-      price: "₹1",
-      image: Card1,
-    },
-    {
-      title: "💖 Love & Relationship Reading",
-      description:
-        "For confusion, emotional blocks, partner intentions, or healing.",
-      ideal: "Love future, connection clarity, emotional energy",
-      duration: "30–45 minutes",
-      mode: "Chat / Audio",
-      price: "₹1500",
-      image: Card3,
-    },
-    {
-      title: "🔥 Energy Check / No-Contact Reading",
-      description: "To understand emotional distance and unspoken feelings.",
-      ideal: "Current energy, emotional status",
-      duration: "30–45 minutes",
-      mode: "Chat / Audio",
-      price: "₹555",
-      image: Card4,
-    },
-    {
-      title: "🌿 Life Path & Confusion Reading",
-      description: "When nothing feels clear and you need grounding.",
-      ideal: "Life direction, inner blockages",
-      duration: "30–45 minutes",
-      mode: "Chat / Audio",
-      price: "₹400",
-      image: Card5,
-    },
-  ];
+  const [service, setService] = useState([]);
+
+  // const services = [
+  //   {
+  //     title: "💼 Career & Purpose Reading",
+  //     description:
+  //       "For career confusion, direction, decisions, and growth blocks.",
+  //     ideal: "Job change, purpose, stagnation",
+  //     duration: "30–45 minutes",
+  //     mode: "Chat / Audio",
+  //     price: "₹1",
+  //     image: Card1,
+  //   },
+  //   {
+  //     title: "💖 Love & Relationship Reading",
+  //     description:
+  //       "For confusion, emotional blocks, partner intentions, or healing.",
+  //     ideal: "Love future, connection clarity, emotional energy",
+  //     duration: "30–45 minutes",
+  //     mode: "Chat / Audio",
+  //     price: "₹1500",
+  //     image: Card3,
+  //   },
+  //   {
+  //     title: "🔥 Energy Check / No-Contact Reading",
+  //     description: "To understand emotional distance and unspoken feelings.",
+  //     ideal: "Current energy, emotional status",
+  //     duration: "30–45 minutes",
+  //     mode: "Chat / Audio",
+  //     price: "₹555",
+  //     image: Card4,
+  //   },
+  //   {
+  //     title: "🌿 Life Path & Confusion Reading",
+  //     description: "When nothing feels clear and you need grounding.",
+  //     ideal: "Life direction, inner blockages",
+  //     duration: "30–45 minutes",
+  //     mode: "Chat / Audio",
+  //     price: "₹400",
+  //     image: Card5,
+  //   },
+  // ];
+
+  useEffect(() => {
+    const fetchService = async () => {
+      try {
+        const res = await axios.get("http://localhost:7777/v1/serviceList");
+        setService(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchService();
+  }, []);
 
   return (
     <div>
-      <div className="relative border min-h-screen text-black flex items-center justify-center">
-        <img
+      <Navbar />
+
+      <div className="relative  min-h-screen text-black flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  justify-center">
+        {/* <img
           src={img}
           alt="homepage"
           className="absolute inset-0 w-full h-full object-cover -z-10"
-        />
+        /> */}
 
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 z-10">
           {/* LEFT */}
@@ -130,13 +148,16 @@ text-center md:text-left leading-tight"
 
       {/* Tarot Services */}
 
-      <div id="services" className="bg-white py-12 px-6">
+      <div
+        id="services"
+        className="bg-white py-12 px-6 bg-gradient-to-r from-red-400 via-purple-500 to-pink-500"
+      >
         <h2 className="font-bold text-center text-3xl py-12 px-6">
           🃏 Tarot Readings & Services
         </h2>
 
         <div className="  max-w-6xl  mx-auto grid grid-cols-1  md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {service.map((service, index) => (
             <div
               key={index}
               className=" w-full max-w-sm mx-auto rounded-xl  shadow-lgp-6 bg-cover bg-center text-white [text-shadow:_2px_2px_8px_black]"
@@ -238,13 +259,16 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Signin/>} />
-        <Route path ="/signup" element={<Signup/>}/>
-        <Route path="/booking" element={
-           <Protectedroute>
-           <Booking/>
-           </Protectedroute>
-          } />
+        <Route path="/login" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/booking"
+          element={
+            <Protectedroute>
+              <Booking />
+            </Protectedroute>
+          }
+        />
       </Routes>
     </Router>
   );
