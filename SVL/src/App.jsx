@@ -1,5 +1,5 @@
 import "./App.css";
-// import img from "./assets/b89e4f9c-86be-45f7-991d-139456606a16.jpeg";
+import img from './assets/Desktop_wall.jpg'
 import Navbar from "./components/Navbar";
 import axios from "axios";
 import {
@@ -89,17 +89,17 @@ function Home() {
     <div>
       <Navbar />
 
-      <div className="relative  min-h-screen text-black flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  justify-center">
-        {/* <img
+      <div className="relative  min-h-screen text-black flex items-center  justify-center">
+        <img
           src={img}
           alt="homepage"
           className="absolute inset-0 w-full h-full object-cover -z-10"
-        /> */}
+        />
 
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 z-10">
           {/* LEFT */}
           <h1
-            className="font-bold text-amber-400  
+            className="font-bold text-yellow-300 
 [text-shadow:_2px_2px_6px_black]
 text-3xl sm:text-4xl md:text-5xl lg:text-6xl
 text-center md:text-left leading-tight"
@@ -120,7 +120,7 @@ text-center md:text-left leading-tight"
   bg-cover bg-center
   text-white
   [text-shadow:_2px_2px_9px_black]  max-w-xls p-8 rounded-lg shadow-lg"
-            style={{ backgroundImage: `url(${Card2})` }}
+            style={{ backgroundImage: `url(${img})` }}
           >
             <p className="mb-4 font-bold   rounded-xl w-full flex items-center">
               When life feels confusing, the cards speak clarity. I am Anisha
@@ -148,15 +148,26 @@ text-center md:text-left leading-tight"
 
       {/* Tarot Services */}
 
+      
+
       <div
         id="services"
-        className="bg-white py-12 px-6 bg-gradient-to-r from-red-400 via-purple-500 to-pink-500"
+        className=" py-12 px-6"
+
+        
+        
       >
+         
+        
         <h2 className="font-bold text-center text-3xl py-12 px-6">
           🃏 Tarot Readings & Services
+          
         </h2>
+        
 
         <div className="  max-w-6xl  mx-auto grid grid-cols-1  md:grid-cols-3 gap-8">
+
+          
           {service.map((service, index) => (
             <div
               key={index}
@@ -176,7 +187,7 @@ text-center md:text-left leading-tight"
               <p className="text-sm  mb-2">
                 <strong>Mode:</strong> {service.mode}
               </p>
-              <p className="text-3xl font-bold  mb-4">{service.price}</p>
+              <p className="text-3xl font-bold  mb-4"> ₹{service.price}</p>
 
               <div className="flex justify-center">
                 <button
@@ -192,6 +203,8 @@ text-center md:text-left leading-tight"
       </div>
 
       <div className="bg-white py-12 px-6 flex justify-center bg-cover bg-center">
+
+        
         <div
           className=" relative  w-full max-w-sm bg-white border font-bold  text-l font-bold text-white 
   [text-shadow:_2px_2px_8px_black] max-w-xl p-8 rounded-lg shadow-lg "
