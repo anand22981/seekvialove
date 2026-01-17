@@ -8,7 +8,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import aboutImg from "./assets/4869d4b2-4d8e-4112-bef9-46defa578b5d.jpeg";
+
 import Card3 from "./assets/bg.jpeg";
 import Card1 from "./assets/791da27d-feb8-47ae-9c10-99d5c5595f3c.jpeg";
 import Card4 from "./assets/energy.jpeg";
@@ -86,15 +86,18 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div
+    
+     className="relative min-h-screen bg-cover bg-center bg-fixed"
+    style={{ backgroundImage: `url(${img})` }}>
+
+      
       <Navbar />
 
+      
+
       <div className="relative  min-h-screen text-black flex items-center  justify-center">
-        <img
-          src={img}
-          alt="homepage"
-          className="absolute inset-0 w-full h-full object-cover -z-10"
-        />
+       
 
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 z-10">
           {/* LEFT */}
@@ -105,7 +108,7 @@ text-3xl sm:text-4xl md:text-5xl lg:text-6xl
 text-center md:text-left leading-tight"
           >
             Seek via Love{" "}
-            <span className="block text-xl text-yellow-300 sm:text-2xl md:text-3xl">
+            <span className="block text-xl text-white sm:text-2xl md:text-3xl">
               Tarot & Soul Guidance
             </span>
           </h1>
@@ -120,8 +123,9 @@ text-center md:text-left leading-tight"
   bg-cover bg-center
   text-white
   [text-shadow:_2px_2px_9px_black]  max-w-xls p-8 rounded-lg shadow-lg"
-            style={{ backgroundImage: `url(${img})` }}
+            
           >
+            
             <p className="mb-4 font-bold   rounded-xl w-full flex items-center">
               When life feels confusing, the cards speak clarity. I am Anisha
               Jha — an intuitive tarot reader and soul guide. I don’t predict
@@ -150,19 +154,16 @@ text-center md:text-left leading-tight"
 
       
 
-      <div
-        id="services"
-        className=" py-12 px-6"
+     <div className=" py-12 px-6 ">
+       
 
         
-        
-      >
          
-        
-        <h2 className="font-bold text-center text-3xl py-12 px-6">
+         <h2 className="font-bold text-white text-center text-3xl py-12 px-6">
           🃏 Tarot Readings & Services
           
         </h2>
+       
         
 
         <div className="  max-w-6xl  mx-auto grid grid-cols-1  md:grid-cols-3 gap-8">
@@ -187,7 +188,7 @@ text-center md:text-left leading-tight"
               <p className="text-sm  mb-2">
                 <strong>Mode:</strong> {service.mode}
               </p>
-              <p className="text-3xl font-bold  mb-4"> ₹{service.price}</p>
+              <span className="text-3xl font-bold  mb-4 bg-black"> ₹{service.price}</span>
 
               <div className="flex justify-center">
                 <button
@@ -202,14 +203,19 @@ text-center md:text-left leading-tight"
         </div>
       </div>
 
-      <div className="bg-white py-12 px-6 flex justify-center bg-cover bg-center">
-
+      <div className=" py-12 px-6 flex justify-center bg-cover bg-center   " >
+      
+     
         
         <div
-          className=" relative  w-full max-w-sm bg-white border font-bold  text-l font-bold text-white 
-  [text-shadow:_2px_2px_8px_black] max-w-xl p-8 rounded-lg shadow-lg "
-          style={{ backgroundImage: `url(${aboutImg})` }}
+          className=" relative  w-full max-w-sm  border font-bold  text-l font-bold text-white 
+  [text-shadow:_2px_2px_8px_black] max-w-xl p-8 rounded-lg shadow-lg absolute bg-cover bg-center"
+  
         >
+
+          
+
+          
           <h1
             className="text-3xl font-bold text-amber-400 
   [text-shadow:_2px_2px_6px_black]"
@@ -217,6 +223,8 @@ text-center md:text-left leading-tight"
             {" "}
             🔮 ABOUT ME
           </h1>
+
+          
           <p
             className="mt-4 text-l font-bold text-white 
   [text-shadow:_2px_2px_6px_black]"
