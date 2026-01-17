@@ -1,44 +1,40 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import Img from "../assets/791da27d-feb8-47ae-9c10-99d5c5595f3c.jpeg";
+import { Link, useNavigate } from "react-router-dom";
+import Img from "../assets/Desktop_wall.jpg";
+import axios from "axios";
 
 const Signin = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [step, setStep] = useState("email");
-  const [otp, setOtp] = useState("");
+  const [password, setPassword] = useState(""); // Using password instead of OTP
+  const [loading, setLoading] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleOtpChange = (e) => {
-    setOtp(e.target.value);
-  };
-
-  const handleLogin = () => {
-    if (!email) {
-      alert("Please enter your email");
-      return;
-    }
-    setStep("otp");
-    console.log("Login initiated for:", email);
-    // Add backend login/OTP logic here
-  };
-
-  const handleVerifyOtp = () => {
-    if (!otp) {
-      alert("Please enter OTP");
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Please enter email and password");
       return;
     }
 
-    // Simulate successful login
-    localStorage.setItem("user", JSON.stringify({ email }));
-    const redirect = localStorage.getItem("redirectAfterLogin") || "/booking";
-    localStorage.removeItem("redirectAfterLogin");
-    navigate(redirect);
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:7777/v1/signin",
+        { emailId: email, password },
+        { withCredentials: true } // important to store session cookie
+      );
+
+      if (res.data.message === "Login Successfull") {
+        // Redirect user after successful login
+        navigate("/");
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || "Login failed");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,46 +48,35 @@ const Signin = () => {
 
       {/* Login Card */}
       <div className="relative bg-black/50 p-8 rounded-xl shadow-lg w-full max-w-sm text-white">
-        {step === "email" && (
-          <>
-            <h2 className="text-2xl font-bold mb-4">Login to Book</h2>
-            <input
-              type="email"
-              placeholder="Enter Your Email"
-              value={email}
-              onChange={handleEmailChange}
-              className="w-full px-3 py-2 mb-4 text-white rounded border border-gray-300"
-            />
-            <button
-              onClick={handleLogin}
-              className="w-full bg-red-600 px-4 py-2 rounded font-semibold"
-            >
-              Login
-            </button>
-            
-            <Link to = "/signup">Signup</Link>
-          </>
-        )}
+        <h2 className="text-2xl font-bold mb-4">Login to Book</h2>
+        <input
+          type="email"
+          placeholder="Enter Your Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 mb-4 text-white rounded border border-gray-300"
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 mb-4 text-white rounded border border-gray-300"
+        />
+        <button
+          onClick={handleLogin}
+          className="w-full bg-red-600 px-4 py-2 rounded font-semibold"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
 
-        {step === "otp" && (
-          <>
-            <h2 className="text-2xl font-bold mb-4">Verify OTP</h2>
-            <input
-              type="text"
-              placeholder="Enter 6-digit OTP"
-              value={otp}
-              onChange={handleOtpChange}
-              className="w-full px-3 py-2 mb-4 text-white rounded border border-gray-300"
-            />
-            <button
-              onClick={handleVerifyOtp}
-              className="w-full bg-red-600 px-4 py-2 rounded font-semibold"
-            >
-              Verify OTP
-            </button>
-
-          </>
-        )}
+        <div className="mt-4 text-center">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-red-500 font-semibold">
+            Signup
+          </Link>
+        </div>
       </div>
     </div>
   );
