@@ -124,10 +124,11 @@ const Booking = () => {
           </div>
         </div>
       )}
-
+      
       {/* Booking History Section */}
       <div className="max-w-6xl mx-auto mt-16 px-6">
         <h2 className="text-3xl font-bold mb-6 text-center text-white">Booking History</h2>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {bookings.map((booking) => {
@@ -153,8 +154,15 @@ const Booking = () => {
           })}
         </div>
       </div>
+      
+      <div className="mt-4">
+        <h2>Note -Tarot Reader will Connect within 24 hours. Please share you payment snap on mailID - anishakumarivats7@gmail.com</h2>
+      </div>
+
       <Footer/>
     </div>
+
+    
   );
 };
 

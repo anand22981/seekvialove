@@ -71,7 +71,7 @@ export default function Navbar() {
             <Link className="text-gray-300 hover:text-white" to="/">
               Home
             </Link>
-            <Link href="#services" className="text-gray-300 hover:text-white" to="/service">
+            <Link href="#services" className="text-gray-300 hover:text-white" to="/#services">
               Services
             </Link>
             <Link className="text-gray-300 hover:text-white" to="/booking">
@@ -108,14 +108,14 @@ export default function Navbar() {
               
 
                 <MenuItems className="absolute right-0 mt-2 w-40 bg-white rounded shadow">
-                  <MenuItem>
+                  {/* <MenuItem>
                     <button
                       onClick={() => navigate("/")}
                       className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                     >
                       Dashboard
                     </button>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem>
                     <button
                       onClick={handleLogout}
