@@ -123,23 +123,35 @@ const Home = () => {
               <p className="text-sm mb-2 flex items-center gap-2 flex-wrap">
                 <strong>Mode:</strong>
 
-                {serviceItem.mode?.toLowerCase().includes("chat") && (
-                  <span className="px-2 py-1 rounded bg-pink-500/20 text-pink-300">
-                    💬 Chat
-                  </span>
-                )}
+                {(Array.isArray(serviceItem.mode)
+                  ? serviceItem.mode
+                  : [serviceItem.mode]   // convert string → array safely
+                ).map((m, i) => {
+                  const mode = m?.toLowerCase();
 
-                {serviceItem.mode?.toLowerCase().includes("audio") && (
-                  <span className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">
-                    🎧 Audio
-                  </span>
-                )}
+                  if (mode.includes("chat"))
+                    return (
+                      <span key={i} className="px-2 py-1 rounded bg-pink-500/20 text-pink-300">
+                        💬 Chat
+                      </span>
+                    );
 
-                {serviceItem.mode?.toLowerCase().includes("video") && (
-                  <span className="px-2 py-1 rounded bg-green-500/20 text-green-300">
-                    📹 Video
-                  </span>
-                )}
+                  if (mode.includes("audio"))
+                    return (
+                      <span key={i} className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">
+                        🎧 Audio
+                      </span>
+                    );
+
+                  if (mode.includes("video"))
+                    return (
+                      <span key={i} className="px-2 py-1 rounded bg-green-500/20 text-green-300">
+                        📹 Video
+                      </span>
+                    );
+
+                  return null;
+                })}
               </p>
               <span className="text-3xl font-bold mb-4 block w-fit px-2">
                 ₹{new Intl.NumberFormat("en-IN", {
