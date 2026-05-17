@@ -23,7 +23,8 @@ const Booking = () => {
   const submitReview = async () => {
   try {
     await axios.post(
-      "http://localhost:7777/v1/reviews",
+  
+      "http://3.213.27.192:7777/v1/reviews",
       {
         serviceId: selectedBooking.service._id,
         message: reviewForm.message,
@@ -39,7 +40,7 @@ const Booking = () => {
 
     // refresh bookings
     const bookingRes = await axios.get(
-      "http://localhost]:7777/v1/booking",
+      "http://3.213.27.192:7777/v1/booking",
       { withCredentials: true }
     );
 
