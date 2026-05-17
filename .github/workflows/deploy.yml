@@ -29,13 +29,13 @@ jobs:
             # Backend (force sync)
             cd /app/backend/api.seekvialove
             git fetch --all --prune
-            git reset --hard origin/master
+            git reset --hard origin/main
             git clean -fd
 
             # Frontend (force sync)
             cd /app/frontend/seekvialove/SVL
             git fetch --all --prune
-            git reset --hard origin/master
+            git reset --hard origin/main:
             git clean -fd
 
             # Deploy
