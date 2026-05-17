@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - master
+      - master   # change to main if THIS repo uses main
 
 jobs:
   deploy:
@@ -23,24 +23,38 @@ jobs:
 
             echo "🚀 Starting deployment..."
 
-            # Pull backend
+            # Fix git safe directories
+            git config --global --add safe.directory /app/backend/api.seekvialove
+            git config --global --add safe.directory /app/frontend/seekvialove/SVL
+
+            # =========================
+            # BACKEND (main branch)
+            # =========================
             cd /app/backend/api.seekvialove
-            git pull origin master
+            git fetch --all --prune
+            git reset --hard origin/main
+            git clean -fd
 
-            # Pull frontend
+            # =========================
+            # FRONTEND (master branch)
+            # =========================
             cd /app/frontend/seekvialove/SVL
-            git pull origin master
+            git fetch --all --prune
+            git reset --hard origin/master
+            git clean -fd
 
-            # Go to compose directory
+            # =========================
+            # DEPLOY WITH DOCKER
+            # =========================
             cd /app
 
             echo "🐳 Stopping containers..."
             docker-compose down
 
-            echo "🔨 Building & starting containers..."
+            echo "🔨 Building containers..."
             docker-compose -f docker-compose.yml up -d --build
 
             echo "🧹 Cleaning unused images..."
             docker image prune -f
 
-            echo "✅ Deployment completed"
+            echo "✅ Deployment completed successfully"
