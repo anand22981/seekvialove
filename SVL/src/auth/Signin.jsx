@@ -74,7 +74,7 @@ const Signin = () => {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-red-600 px-4 py-2 rounded font-semibold"
+          className="w-full bg-black px-4 py-2 rounded font-semibold"
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
