@@ -14,9 +14,9 @@ jobs:
         uses: appleboy/ssh-action@master
 
         with:
-          host: ${{ secrets.SEEKVIALOVE }}
+          host: ${{ secrets.SEEKVIALOVE}}
           username: ec2-user
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SERVER_SSH_KEY}}
 
           script: |
             cd /app/frontend/seekvialove/SVL
