@@ -76,15 +76,15 @@ const Home = () => {
       </div>
 
       {/* Services Section */}
-<div
-  id="services"
-  className="
+      <div
+        id="services"
+        className="
     pt-32
     pb-20
     px-6
     scroll-mt-52
   "
->
+      >
         <h2 className="font-bold text-white text-center text-3xl py-12">
           🃏 Tarot Readings & Services
         </h2>
@@ -93,7 +93,7 @@ const Home = () => {
           {services.map((serviceItem) => (
             <div
               key={serviceItem._id}
-             className="
+              className="
   w-full
   max-w-sm
   mx-auto
@@ -111,7 +111,7 @@ const Home = () => {
   hover:scale-105
   hover:shadow-orange-500/30
 "
-              // style={{ backgroundImage: `url(${img})` }}
+            // style={{ backgroundImage: `url(${img})` }}
             >
               <h3 className="text-xl font-bold mb-3 text-yellow-400">
                 {serviceItem.title}
@@ -120,11 +120,33 @@ const Home = () => {
               <p className="text-sm mb-2">
                 <strong>Ideal for:</strong> {serviceItem.ideal}
               </p>
-              <p className="text-sm mb-2">
-                <strong>Mode:</strong> {serviceItem.mode}
+              <p className="text-sm mb-2 flex items-center gap-2 flex-wrap">
+                <strong>Mode:</strong>
+
+                {serviceItem.mode?.toLowerCase().includes("chat") && (
+                  <span className="px-2 py-1 rounded bg-pink-500/20 text-pink-300">
+                    💬 Chat
+                  </span>
+                )}
+
+                {serviceItem.mode?.toLowerCase().includes("audio") && (
+                  <span className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">
+                    🎧 Audio
+                  </span>
+                )}
+
+                {serviceItem.mode?.toLowerCase().includes("video") && (
+                  <span className="px-2 py-1 rounded bg-green-500/20 text-green-300">
+                    📹 Video
+                  </span>
+                )}
               </p>
               <span className="text-3xl font-bold mb-4 block w-fit px-2">
-                ₹{serviceItem.price}
+                ₹{new Intl.NumberFormat("en-IN", {
+                  style: "currency",
+                  currency: "INR",
+                  maximumFractionDigits: 0
+                }).format(serviceItem.price).replace("₹", "")}
               </span>
 
               <div className="flex justify-center">
