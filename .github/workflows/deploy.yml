@@ -23,6 +23,9 @@ jobs:
 
             echo "🚀 Starting deployment..."
 
+            git config --global --add safe.directory /app/backend/api.seekvialove
+            git config --global --add safe.directory /app/frontend/seekvialove/SVL
+
             # Pull backend
             cd /app/backend/api.seekvialove
             git pull origin master
