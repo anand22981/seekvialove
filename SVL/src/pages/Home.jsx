@@ -120,39 +120,38 @@ const Home = () => {
               <p className="text-sm mb-2">
                 <strong>Ideal for:</strong> {serviceItem.ideal}
               </p>
-              <p className="text-sm mb-2 flex items-center gap-2 flex-wrap">
-                <strong>Mode:</strong>
+             <p className="text-sm mb-2 flex items-center gap-2 flex-wrap">
+  <strong>Mode:</strong>
 
-                {(Array.isArray(serviceItem.mode)
-                  ? serviceItem.mode
-                  : [serviceItem.mode]   // convert string → array safely
-                ).map((m, i) => {
-                  const mode = m?.toLowerCase();
+  {(Array.isArray(serviceItem.mode) ? serviceItem.mode : [serviceItem.mode])
+    .filter(Boolean) // remove null/undefined
+    .map((m, i) => {
+      const mode = String(m).toLowerCase(); // 🔥 force to string safely
 
-                  if (mode.includes("chat"))
-                    return (
-                      <span key={i} className="px-2 py-1 rounded bg-pink-500/20 text-pink-300">
-                        💬 Chat
-                      </span>
-                    );
+      if (mode.includes("chat"))
+        return (
+          <span key={i} className="px-2 py-1 rounded bg-pink-500/20 text-pink-300">
+            💬 Chat
+          </span>
+        );
 
-                  if (mode.includes("audio"))
-                    return (
-                      <span key={i} className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">
-                        🎧 Audio
-                      </span>
-                    );
+      if (mode.includes("audio"))
+        return (
+          <span key={i} className="px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">
+            🎧 Audio
+          </span>
+        );
 
-                  if (mode.includes("video"))
-                    return (
-                      <span key={i} className="px-2 py-1 rounded bg-green-500/20 text-green-300">
-                        📹 Video
-                      </span>
-                    );
+      if (mode.includes("video"))
+        return (
+          <span key={i} className="px-2 py-1 rounded bg-green-500/20 text-green-300">
+            📹 Video
+          </span>
+        );
 
-                  return null;
-                })}
-              </p>
+      return null;
+    })}
+</p>
               <span className="text-3xl font-bold mb-4 block w-fit px-2">
                 ₹{new Intl.NumberFormat("en-IN", {
                   style: "currency",
