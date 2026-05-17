@@ -27,7 +27,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:7777/v1/signup",
+        "http://3.213.27.192:7777/v1/signup",
         formData,
         {
           headers: { "Content-Type": "application/json" },

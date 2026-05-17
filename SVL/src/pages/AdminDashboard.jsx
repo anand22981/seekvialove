@@ -24,7 +24,7 @@ const AdminDashboard = () => {
   // ================= FETCH REVIEWS =================
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("http://localhost:7777/v1/reviews");
+      const res = await axios.get("http://3.213.27.192:7777/v1/reviews");
       setReviews(res.data.data || []);   // ⭐ correct array
     } catch (err) {
       console.error(err);
