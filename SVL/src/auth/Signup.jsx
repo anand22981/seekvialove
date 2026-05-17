@@ -26,6 +26,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       const res = await axios.post(
         "http://localhost:7777/v1/signup",
         formData,
@@ -33,6 +34,11 @@ const Signup = () => {
           headers: { "Content-Type": "application/json" },
         },
       );
+=======
+      const res = await axios.post("/v1/signup", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+>>>>>>> a958bda (Updated frontend)
 
       if (res.data.message === "User already exists") {
         alert("User already exists! Please login.");

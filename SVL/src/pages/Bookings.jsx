@@ -57,7 +57,7 @@ const Booking = () => {
     const initialize = async () => {
       try {
         // Check session
-        const sessionRes = await axios.get("http://localhost:7777/v1/checkSession", {
+        const sessionRes = await axios.get("/v1/checkSession", {
           withCredentials: true,
         });
 
@@ -72,7 +72,7 @@ const Booking = () => {
         }
 
         // Fetch user bookings
-        const bookingRes = await axios.get("http://localhost:7777/v1/booking", {
+        const bookingRes = await axios.get("/v1/booking", {
           withCredentials: true,
         });
 
@@ -115,7 +115,7 @@ const Booking = () => {
     try {
       setBookingLoading(true);
       const res = await axios.post(
-        "http://localhost:7777/v1/booking",
+        "/v1/booking",
         { serviceId: service._id },
         { withCredentials: true }
       );
@@ -140,8 +140,15 @@ const Booking = () => {
       style={{ backgroundImage: `url(${img})` }}
     >
       <Navbar />
-
-      {/* <h1 className="font-bold text-center text-3xl py-12 px-6">Booking Page</h1> */}
+          
+       
+         <div className="bg-yellow-400  text-black font-semibold p-4 text-center shadow-md  w-full z-50">
+      <p>
+        After payment via PhonePe (UPI: 7361015759@ybl), kindly email your screenshot to 
+        <span className="font-bold"> anishakumarivats7@gmail.com</span>. I will personally connect with you within 24 hours to schedule your Live 1:1 Reading on Google Meet. Your energy is highly valued, and I look forward to bringing clarity to your path. ✨
+      </p>
+    </div>
+        {/* <h1 className="font-bold text-center text-3xl py-12 px-6">Booking Page</h1> */}
 
       {/* Selected Service Booking */}
       {service && (
@@ -153,7 +160,7 @@ const Booking = () => {
               className="rounded w-full h-56 object-cover mb-4"
             />
             <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
-            <p className="text-xl font-semibold mb-4">Price: ₹{service.price}</p>
+            <p className="text-xl font-semibold mb-4">Price: ₹{service.price.toLocaleString()}</p>
 
             <button
               onClick={handleBooking}
@@ -161,7 +168,7 @@ const Booking = () => {
               className={`text-white mt-4 bg-red-600 px-6 py-2 rounded font-semibold w-full ${bookingLoading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
             >
-              {bookingLoading ? "Processing..." : "Pay Via UPI"}
+              {bookingLoading ? "Processing..." : "Book Now"}
             </button>
           </div>
         </div>
@@ -211,10 +218,15 @@ const Booking = () => {
           })}
         </div>
       </div>
+<<<<<<< HEAD
 
       <div className="mt-4">
         <h2>Note -Tarot Reader will Connect within 24 hours. Please share you payment snap on mailID - anishakumarivats7@gmail.com</h2>
       </div>
+=======
+      
+ 
+>>>>>>> a958bda (Updated frontend)
 
 {selectedBooking && (
   <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">

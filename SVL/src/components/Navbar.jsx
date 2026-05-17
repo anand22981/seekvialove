@@ -19,7 +19,7 @@ export default function Navbar( { hideSignup = false }) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await axios.get("http://localhost:7777/v1/checkSession", {
+        const res = await axios.get("/v1/checkSession", {
           withCredentials: true,
         });
 
@@ -44,7 +44,7 @@ export default function Navbar( { hideSignup = false }) {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:7777/v1/logout",
+        "/v1/logout",
         {},
         { withCredentials: true }
       );

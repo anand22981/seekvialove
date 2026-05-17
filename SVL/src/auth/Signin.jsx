@@ -22,7 +22,7 @@ const Signin = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:7777/v1/signin",
+        "/v1/signin",
         { emailId: email, password },
         { withCredentials: true } // important to store session cookie
       );

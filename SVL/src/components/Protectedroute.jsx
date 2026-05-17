@@ -9,7 +9,7 @@ const Protectedroute = ({ children }) => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await axios.get("http://localhost:7777/v1/checkSession", {
+        const res = await axios.get("/v1/checkSession", {
           withCredentials: true, // important to send cookies
         });
         if (res.data.loggedIn) setIsAuth(true);
