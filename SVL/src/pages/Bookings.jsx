@@ -24,7 +24,7 @@ const Booking = () => {
   try {
     await axios.post(
   
-      "http://3.213.27.192:7777/v1/reviews",
+      "http://seekvialove.com/v1/reviews",
       {
         serviceId: selectedBooking.service._id,
         message: reviewForm.message,
@@ -40,7 +40,7 @@ const Booking = () => {
 
     // refresh bookings
     const bookingRes = await axios.get(
-      "http://3.213.27.192:7777/v1/booking",
+      "http://seekvialove.com/v1/booking",
       { withCredentials: true }
     );
 
@@ -143,7 +143,7 @@ const Booking = () => {
       <Navbar />
           
        
-         <div className="bg-yellow-400  text-black font-semibold p-4 text-center shadow-md  w-full z-50">
+         <div className="bg-yellow-400 mt-5  text-black font-semibold p-4 text-center shadow-md  w-full z-50">
       <p>
         After payment via PhonePe (UPI: 7361015759@ybl), kindly email your screenshot to 
         <span className="font-bold"> anishakumarivats7@gmail.com</span>. I will personally connect with you within 24 hours to schedule your Live 1:1 Reading on Google Meet. Your energy is highly valued, and I look forward to bringing clarity to your path. ✨

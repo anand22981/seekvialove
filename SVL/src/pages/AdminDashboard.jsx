@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "http://3.213.27.192:7777/v1";
+const API = "http://seekvialove.com/v1";
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
   // ================= FETCH REVIEWS =================
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("http://3.213.27.192:7777/v1/reviews");
+      const res = await axios.get("http://seekvialove.com/v1/reviews");
       setReviews(res.data.data || []);   // ⭐ correct array
     } catch (err) {
       console.error(err);
