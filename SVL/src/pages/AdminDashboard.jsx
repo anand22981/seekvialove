@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:7777/v1";
+const API = "http://3.213.27.192:7777/v1";
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
