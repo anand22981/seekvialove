@@ -11,7 +11,7 @@ import {
 } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
 
-export default function Navbar() {
+export default function Navbar( { hideSignup = false }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -58,32 +58,46 @@ export default function Navbar() {
   if (loading) return null; // or a spinner
 
   return (
-    <Disclosure as="nav" className="bg-black">
-      <div className="mx-auto max-w-7xl px-4">
+    <Disclosure
+  as="nav"
+  className="
+    fixed top-5 left-1/2 -translate-x-1/2
+    w-[95%] max-w-7xl
+    bg-gradient-to-r from-black to-orange-400/80
+    backdrop-blur-md
+    border border-white/10
+    shadow-xl
+    rounded-2xl
+    px-4 py-2
+    z-50
+  "
+>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/home" className="text-yellow-300 font-bold text-xl">
+          <Link to="/home" className="text-yellow-300 font-bold text-base sm:text-lg md:text-xl">
             SeekViaLove
+            <h1 className="text-xs text-white ">Tarot & Soul Guidance</h1>
           </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-4">
-            <Link className="text-gray-300 hover:text-white" to="/">
+            <Link className="text-white hover:text-white" to="/">
               Home
             </Link>
-            <Link href="#services" className="text-gray-300 hover:text-white" to="/#services">
+            <Link href="#services" className="text-white hover:text-black" to="/#services">
               Services
             </Link>
-            <Link className="text-gray-300 hover:text-white" to="/booking">
+            <Link className="text-white hover:text-white" to="/booking">
               Bookings
             </Link>
-            <span className="text-gray-300">Contact</span>
+            <span className="text-white">Contact</span>
           </div>
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
             <BellIcon className="h-6 w-6 text-gray-400" />
-
+{/* 
             {!user && (
               <>
                 <Link to="/login" className="text-white">
@@ -91,12 +105,40 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-red-500 px-3 py-1 rounded text-white"
+                  className="bg-black px-3 py-1 rounded text-white"
                 >
                   Signup
                 </Link>
               </>
-            )}
+            )} */}
+            {!user && (
+  <div className="flex items-center gap-3">
+    
+    <Link
+      to="/login"
+      className="text-white hover:text-orange-200 transition"
+    >
+      Login
+    </Link>
+
+    {!hideSignup && (
+      <Link
+        to="/signup"
+        className="
+          bg-black/80
+          px-4 py-2
+          rounded-lg
+          text-white
+          shadow-lg
+          hover:bg-black
+          transition-all
+        "
+      >
+        Signup
+      </Link>
+    )}
+  </div>
+)}
 
             {user && (
               <Menu as="div" className="relative">

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Img from "../assets/Desktop_wall.jpg";
 import axios from "axios";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -26,8 +28,13 @@ const Signin = () => {
       );
 
       if (res.data.message === "Login Successfull") {
-        // Redirect user after successful login
-        navigate("/");
+        const role = res.data.data.role;
+
+        if (role === "admin") {
+          navigate("/admin");     // admin dashboard
+        } else {
+          navigate("/");          // normal user homepage
+        }
       }
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -38,7 +45,9 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      <div className="flex-1 flex items-center justify-center px-4 pt-28">
+      <Navbar/>
       {/* Background Image */}
       <img
         src={Img}
@@ -78,6 +87,8 @@ const Signin = () => {
           </Link>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };
