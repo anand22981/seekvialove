@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("/v1/serviceList");
+        const res = await axios.get("http://localhost:7777/v1/serviceList");
         setServices(res.data);
 
         const reviewRes = await axios.get("http://localhost:7777/v1/reviews");
@@ -45,11 +45,7 @@ const Home = () => {
       {/* Hero Section */}
       <div className="min-h-screen pt-44 text-black flex items-center justify-center">
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 z-10">
-<<<<<<< HEAD
           <h1 className="font-bold text-yellow-300 text-4xl md:text-5xl lg:text-6xl text-center md:text-left  [text-shadow:_2px_2px_6px_black]">
-=======
-          <h1 className="font-bold text-yellow-300 text-4xl md:text-5xl lg:text-6xl text-center md:text-left leading-tight [text-shadow:_2px_2px_6px_black]">
->>>>>>> a958bda (Updated frontend)
             Seek Via Love{" "}
             <span className="block text-xl text-white sm:text-2xl md:text-3xl">
               Tarot & Soul Guidance
@@ -121,7 +117,6 @@ const Home = () => {
                 {serviceItem.title}
               </h3>
               <p className="mb-4">{serviceItem.description}</p>
-<<<<<<< HEAD
               <p className="text-sm mb-2">
                 <strong>Ideal for:</strong> {serviceItem.ideal}
               </p>
@@ -131,11 +126,6 @@ const Home = () => {
               <span className="text-3xl font-bold mb-4 block w-fit px-2">
                 ₹{serviceItem.price}
               </span>
-=======
-              <p className="text-sm mb-2"><strong>Ideal for:</strong> {serviceItem.ideal}</p>
-             <p className="text-sm mb-2"><strong>Mode:</strong> {serviceItem.mode.join(" / ")}</p>
-              <span className="text-3xl font-bold mb-4 w-fit px-2">₹{serviceItem.price.toLocaleString()}</span>
->>>>>>> a958bda (Updated frontend)
 
               <div className="flex justify-center">
                 <button

@@ -218,15 +218,13 @@ const Booking = () => {
           })}
         </div>
       </div>
-<<<<<<< HEAD
 
       <div className="mt-4">
         <h2>Note -Tarot Reader will Connect within 24 hours. Please share you payment snap on mailID - anishakumarivats7@gmail.com</h2>
       </div>
-=======
+
       
- 
->>>>>>> a958bda (Updated frontend)
+
 
 {selectedBooking && (
   <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">

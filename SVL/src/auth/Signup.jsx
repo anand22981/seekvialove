@@ -26,7 +26,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       const res = await axios.post(
         "http://localhost:7777/v1/signup",
         formData,
@@ -34,11 +33,6 @@ const Signup = () => {
           headers: { "Content-Type": "application/json" },
         },
       );
-=======
-      const res = await axios.post("/v1/signup", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
->>>>>>> a958bda (Updated frontend)
 
       if (res.data.message === "User already exists") {
         alert("User already exists! Please login.");
@@ -66,12 +60,12 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar hideSignup={true} />
-      Background Image
-      <img
-        src={Img}
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
+      {/* Background Image
+      // <img
+      //   src={Img}
+      //   alt="background"
+      //   className="absolute inset-0 w-full h-full object-cover z-0"
+      // /> */}
       <div className="flex-1 flex justify-center px-4 pt-32 pb-10">
         {/* Form Card */}
         <div
