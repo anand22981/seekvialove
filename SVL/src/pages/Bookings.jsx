@@ -40,7 +40,7 @@ const Booking = () => {
 
     // refresh bookings
     const bookingRes = await axios.get(
-      "http://seekvialove.com/v1/booking",
+      "http://seekvialove.com/v1/reviews",
       { withCredentials: true }
     );
 

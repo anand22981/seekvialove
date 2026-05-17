@@ -19,12 +19,12 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
 
           script: |
-            cd /var/www/seekvialove
+            cd /app/frontend/seekvialove/SVL
 
             git pull origin main
 
             docker compose down
 
-            docker compose up -d --build
+            docker compose up -d
 
             docker image prune -f
