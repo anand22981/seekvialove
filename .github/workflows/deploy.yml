@@ -26,15 +26,19 @@ jobs:
             git config --global --add safe.directory /app/backend/api.seekvialove
             git config --global --add safe.directory /app/frontend/seekvialove/SVL
 
-            # Pull backend
+            # Backend (force sync)
             cd /app/backend/api.seekvialove
-            git pull origin master
+            git fetch --all --prune
+            git reset --hard origin/master
+            git clean -fd
 
-            # Pull frontend
+            # Frontend (force sync)
             cd /app/frontend/seekvialove/SVL
-            git pull origin master
+            git fetch --all --prune
+            git reset --hard origin/master
+            git clean -fd
 
-            # Go to compose directory
+            # Deploy
             cd /app
 
             echo "🐳 Stopping containers..."
