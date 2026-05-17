@@ -13,10 +13,10 @@ const Home = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("http://3.213.27.192:7777/v1/serviceList");
+        const res = await axios.get("https://3.213.27.192:7777/v1/serviceList");
         setServices(res.data);
 
-        const reviewRes = await axios.get("http://3.213.27.192:7777/v1/reviews");
+        const reviewRes = await axios.get("https://3.213.27.192:7777/v1/reviews");
         setReviews(reviewRes.data.data);
       } catch (err) {
         console.error(err);
