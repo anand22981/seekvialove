@@ -1,12 +1,14 @@
 version: "3.9"
 services:
   frontend:
-    build: ./frontend
+    build: .
     ports:
       - "8080:80"
+    depends_on:
+      - backend
 
   backend:
-    build: ./backend
+    build: ../SVL_Server
     ports:
       - "7777:7777"
     env_file:
