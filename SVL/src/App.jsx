@@ -9,6 +9,7 @@ import Signup from "./auth/Signup";
 import Booking from "./pages/Bookings";
 import Protectedroute from "./components/Protectedroute";
 import AdminDashboard from "./pages/AdminDashboard";
+import Profile from "./pages/Profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const pageVariants = {
@@ -48,6 +49,14 @@ const App = () => {
           element={
             <Protectedroute>
               <AnimatedPage><Booking /></AnimatedPage>
+            </Protectedroute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Protectedroute>
+              <AnimatedPage><Profile /></AnimatedPage>
             </Protectedroute>
           }
         />

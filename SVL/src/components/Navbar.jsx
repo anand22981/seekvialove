@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../utils/api";
 import {
   Disclosure,
+  DisclosureButton,
   DisclosurePanel,
   Menu,
   MenuButton,
@@ -89,6 +90,13 @@ export default function Navbar( { hideSignup = false }) {
             <h1 className="text-xs text-white ">Tarot & Soul Guidance</h1>
           </Link>
 
+          {/* Mobile Hamburger Button */}
+          <DisclosureButton className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </DisclosureButton>
+
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-4">
             <Link className="text-white hover:text-white" to="/">
@@ -138,19 +146,39 @@ export default function Navbar( { hideSignup = false }) {
 
             {user && (
               <Menu as="div" className="relative">
-                <MenuButton className="text-white font-semibold">
-                 {user.firstName ? `${user.firstName} ${user.lastName || ""}` : "User"}
-                 
+                <MenuButton className="flex items-center gap-2 text-white hover:opacity-80 transition">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-purple-600 flex items-center justify-center text-sm font-bold text-white">
+                    {user.firstName?.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <span className="hidden lg:inline font-semibold text-sm">
+                    {user.firstName || "User"}
+                  </span>
                 </MenuButton>
 
-                <MenuItems className="absolute right-0 mt-2 w-40 bg-white rounded shadow">
+                <MenuItems className="absolute right-0 mt-2 w-48 bg-gradient-to-b from-gray-900 to-black border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                  <div className="px-4 py-3 border-b border-white/10">
+                    <p className="text-white font-semibold text-sm">{user.firstName} {user.lastName || ""}</p>
+                    <p className="text-gray-500 text-xs truncate">{user.emailId || ""}</p>
+                  </div>
                   <MenuItem>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-                    >
-                      Logout
-                    </button>
+                    {({ active }) => (
+                      <Link
+                        to="/profile"
+                        className={`block px-4 py-2.5 text-sm ${active ? "bg-white/10" : ""} text-white transition`}
+                      >
+                        👤 My Profile
+                      </Link>
+                    )}
+                  </MenuItem>
+                  <MenuItem>
+                    {({ active }) => (
+                      <button
+                        onClick={handleLogout}
+                        className={`block w-full text-left px-4 py-2.5 text-sm ${active ? "bg-red-500/10" : ""} text-red-400 transition`}
+                      >
+                        🚪 Logout
+                      </button>
+                    )}
                   </MenuItem>
                 </MenuItems>
               </Menu>
@@ -160,15 +188,54 @@ export default function Navbar( { hideSignup = false }) {
       </div>
 
       {/* Mobile Menu */}
-      <DisclosurePanel className="md:hidden px-4 pb-4">
-        <Link to="/" className="block py-2 text-white">
-          Home
+      <DisclosurePanel className="md:hidden px-4 pb-4 border-t border-white/10 mt-2 pt-3 space-y-1">
+        <Link to="/" className="block py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+          🏠 Home
         </Link>
-        {!user && (
-          <Link to="/login" className="block py-2 text-white">
-            Login
+        <Link to="/#services" className="block py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+          🔮 Services
+        </Link>
+        <Link to="/booking" className="block py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+          📋 Bookings
+        </Link>
+        {user?.role === "admin" && (
+          <Link to="/admin" className="block py-2.5 px-3 text-yellow-300 hover:bg-yellow-400/10 rounded-lg transition font-semibold">
+            ⚡ Admin
           </Link>
         )}
+
+        <div className="border-t border-white/10 my-2 pt-2">
+          {!user ? (
+            <div className="space-y-1">
+              <Link to="/login" className="block py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+                🔑 Login
+              </Link>
+              {!hideSignup && (
+                <Link to="/signup" className="block py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+                  ✨ Signup
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-1">
+              <Link to="/profile" className="flex items-center gap-3 py-2.5 px-3 text-white hover:bg-white/10 rounded-lg transition">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-purple-600 flex items-center justify-center text-sm font-bold text-white">
+                  {user.firstName?.charAt(0).toUpperCase() || "U"}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">{user.firstName} {user.lastName || ""}</div>
+                  <div className="text-xs text-gray-500">View Profile</div>
+                </div>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left py-2.5 px-3 text-red-400 hover:bg-red-500/10 rounded-lg transition"
+              >
+                🚪 Logout
+              </button>
+            </div>
+          )}
+        </div>
       </DisclosurePanel>
     </Disclosure>
   );

@@ -13,6 +13,10 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [birthPlace, setBirthPlace] = useState("");
+  const [birthTime, setBirthTime] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
@@ -24,13 +28,24 @@ const Signup = () => {
     setLoading(true);
 
     try {
+      const payload = {
+        firstName,
+        lastName,
+        emailId: email,
+        password,
+        ...(dob && { dob }),
+        ...(gender && { gender }),
+        ...(birthPlace && { birthPlace }),
+        ...(birthTime && { birthTime }),
+      };
+
       const res = await api.post(
         "/v1/signup",
-        { firstName, lastName, emailId: email, password },
+        payload,
         { withCredentials: true }
       );
 
-      if (res.data.message === "User registered successfully") {
+      if (res.data.message === "User added successfully") {
         alert("Account created! Please login.");
         navigate("/login");
       }
@@ -61,7 +76,7 @@ const Signup = () => {
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative w-full max-w-sm"
+          className="relative w-full max-w-md"
         >
           {/* Glow behind card */}
           <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/10 via-yellow-500/10 to-purple-500/10 rounded-3xl blur-2xl" />
@@ -112,6 +127,48 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-yellow-500/50 transition placeholder-gray-500"
               />
+              <div className="flex gap-3">
+                <div className="w-1/2">
+                  <label className="block text-xs text-gray-500 mb-1 ml-1">Date of Birth</label>
+                  <input
+                    type="date"
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-yellow-500/50 transition placeholder-gray-500 [color-scheme:dark]"
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-xs text-gray-500 mb-1 ml-1">Gender</label>
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-yellow-500/50 transition [color-scheme:dark]"
+                  >
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+              </div>
+              <input
+                type="text"
+                placeholder="Birth Place"
+                value={birthPlace}
+                onChange={(e) => setBirthPlace(e.target.value)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-yellow-500/50 transition placeholder-gray-500"
+              />
+              <div className="flex gap-3 items-end">
+                <div className="w-1/2">
+                  <label className="block text-xs text-gray-500 mb-1 ml-1">Birth Time</label>
+                  <input
+                    type="time"
+                    value={birthTime}
+                    onChange={(e) => setBirthTime(e.target.value)}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl focus:outline-none focus:border-yellow-500/50 transition [color-scheme:dark]"
+                  />
+                </div>
+              </div>
             </motion.div>
 
             <motion.button
