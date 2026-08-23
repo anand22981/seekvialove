@@ -11,6 +11,12 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  
+
+  const handleGoogleLogin = () => {
+  window.location.href = "https://api-seekvialove.onrender.com/v1/auth/google";
+};
+
   const handleLogin = async () => {
     if (!email || !password) {
       alert("Please enter email and password");
@@ -140,6 +146,43 @@ const Signin = () => {
                 "🔮 Login"
               )}
             </button>
+
+            <div className="flex items-center gap-3 my-6">
+  <div className="flex-1 h-px bg-white/10"></div>
+  <span className="text-gray-500 text-sm">OR</span>
+  <div className="flex-1 h-px bg-white/10"></div>
+</div>
+
+<button
+  type="button"
+  onClick={handleGoogleLogin}
+  className="w-full bg-white text-black px-4 py-3 rounded-xl font-semibold shadow-lg hover:bg-gray-100 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-3"
+>
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="#4285F4"
+      d="M21.35 12.23c0-.79-.07-1.55-.2-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.93v2.44h3.14c1.84-1.7 2.92-4.2 2.92-7.4z"
+    />
+    <path
+      fill="#34A853"
+      d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.44c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.52A9.75 9.75 0 0 0 12 21.6z"
+    />
+    <path
+      fill="#FBBC05"
+      d="M6.54 13.69a5.86 5.86 0 0 1 0-3.38V7.79H3.3a9.75 9.75 0 0 0 0 8.42l3.24-2.52z"
+    />
+    <path
+      fill="#EA4335"
+      d="M12 6.28c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.83 3.35 14.63 2.4 12 2.4a9.75 9.75 0 0 0-8.7 5.39l3.24 2.52C7.31 8 9.46 6.28 12 6.28z"
+    />
+  </svg>
+
+  Continue with Google
+</button>
 
             <motion.div
               initial={{ opacity: 0 }}
