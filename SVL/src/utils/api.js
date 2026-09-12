@@ -4,6 +4,7 @@ const API = "https://api-seekvialove.onrender.com";
 
 const api = axios.create({
   baseURL: API,
+  withCredentials: true,
 });
 
 // Attach session ID from sessionStorage to every request
