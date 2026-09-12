@@ -10,6 +10,7 @@ import Booking from "./pages/Bookings";
 import Protectedroute from "./components/Protectedroute";
 import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
+import { Analytics } from '@vercel/analytics/next';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
@@ -70,6 +71,7 @@ const App = () => {
           }
         />
       </Routes>
+       <Analytics />
     </Router>
   );
 };
