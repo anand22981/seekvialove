@@ -16,42 +16,68 @@ export default function Navbar( { hideSignup = false }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     try {
+  //       const res = await api.get("/v1/checkSession");
+
+  //       // Handle various response structures the backend might return
+  //       const loggedIn = res.data?.loggedIn || false;
+  //       if (loggedIn) {
+  //         // Try multiple possible key names for user data
+  //         const userData = res.data.user || res.data.data || res.data.userData || res.data.profile || null;
+  //         const fallbackData = res.data.firstName || res.data.name || res.data.email ? res.data : null;
+  //         const effectiveUser = userData || fallbackData;
+
+  //         if (effectiveUser) {
+  //           // Ensure role is available on the user object
+  //           if (!effectiveUser.role) {
+  //             // Try to get role from the top-level response
+  //             effectiveUser.role = res.data.role || res.data.data?.role || "user";
+  //           }
+  //           setUser(effectiveUser);
+  //         } else {
+  //           setUser(null);
+  //         }
+  //       } else {
+  //         setUser(null);
+  //       }
+  //     } catch (err) {
+  //       console.error("Session check failed:", err);
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   checkSession();
+  // }, []);
+
+
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await api.get("/v1/checkSession");
+  const checkSession = async () => {
+    try {
+      const res = await api.get("/v1/checkSession", {
+        withCredentials: true,
+      });
 
-        // Handle various response structures the backend might return
-        const loggedIn = res.data?.loggedIn || false;
-        if (loggedIn) {
-          // Try multiple possible key names for user data
-          const userData = res.data.user || res.data.data || res.data.userData || res.data.profile || null;
-          const fallbackData = res.data.firstName || res.data.name || res.data.email ? res.data : null;
-          const effectiveUser = userData || fallbackData;
+      console.log("NAVBAR SESSION:", res.data);
 
-          if (effectiveUser) {
-            // Ensure role is available on the user object
-            if (!effectiveUser.role) {
-              // Try to get role from the top-level response
-              effectiveUser.role = res.data.role || res.data.data?.role || "user";
-            }
-            setUser(effectiveUser);
-          } else {
-            setUser(null);
-          }
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.error("Session check failed:", err);
+      if (res.data?.loggedIn && res.data?.user) {
+        setUser(res.data.user);
+      } else {
         setUser(null);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Navbar session error:", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    checkSession();
-  }, []);
+  checkSession();
+}, []);
 
   const handleLogout = async () => {
     try {

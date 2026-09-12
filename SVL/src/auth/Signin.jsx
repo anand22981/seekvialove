@@ -16,10 +16,10 @@ const Signin = () => {
 
 
   const handleGoogleLogin = () => {
-    sessionStorage.removeItem("sessionID");
-    sessionStorage.removeItem("redirectAfterLogin");
-    window.location.href = "https://api-seekvialove.onrender.com/v1/auth/google";
-  };
+  sessionStorage.removeItem("sessionID");
+  window.location.href =
+    "https://api-seekvialove.onrender.com/v1/auth/google";
+};
 
   const handleLogin = async () => {
     if (!email || !password) {
