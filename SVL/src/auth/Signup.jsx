@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import api from "../utils/api";
 
+
 const Signup = () => {
   const navigate = useNavigate();
 

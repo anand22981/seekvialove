@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import img from "../assets/Desktop_wall.jpg";
 import Footer from "../components/Footer";
 import api from "../utils/api";
+import { Analytics } from '@vercel/analytics/next';
 
 // ─── Generate static star positions ───
 const generateStars = () =>
@@ -77,6 +78,7 @@ const ShootingStars = () => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[2]">
+      <Analytics />
       {stars.map((s) => (
         <motion.div
           key={s.id}
