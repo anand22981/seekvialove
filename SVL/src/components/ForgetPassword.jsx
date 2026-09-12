@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import api from "../utils/api";
 
 
@@ -29,12 +28,12 @@ function ForgotPassword() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        `${api}/v1/forgot-password`,
-        {
-          emailId,
-        }
-      );
+     const response = await api.post(
+  "/v1/forgot-password",
+  {
+    emailId,
+  }
+);
 
       setMessage(response.data.message);
       setStep(2);
@@ -64,13 +63,13 @@ function ForgotPassword() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        `${api}/v1/verify-reset-otp`,
-        {
-          emailId,
-          otp,
-        }
-      );
+     const response = await api.post(
+  "/v1/verify-reset-otp",
+  {
+    emailId,
+    otp,
+  }
+);
 
       setMessage(response.data.message);
       setStep(3);
@@ -105,14 +104,14 @@ function ForgotPassword() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        `${api}/v1/resetPassword`,
-        {
-          emailId,
-          otp,
-          newPassword,
-        }
-      );
+     const response = await api.post(
+  "/v1/resetPassword",
+  {
+    emailId,
+    otp,
+    newPassword,
+  }
+);
 
       setMessage(response.data.message);
 
