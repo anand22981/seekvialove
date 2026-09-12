@@ -283,40 +283,60 @@ const ServiceCard = ({ service, index, handleBookNow }) => {
 };
 
 // ─── Review Card ───
+
+// ─── Review Card ───
 const ReviewCard = ({ review, getReviewerName }) => (
   <motion.div
     whileHover={{ scale: 1.02, y: -4 }}
-    className="min-w-[320px] bg-gradient-to-br from-black/90 via-purple-950/80 to-black/90
-      backdrop-blur-md border border-yellow-500/20 shadow-xl rounded-2xl p-5 text-white
-      relative overflow-hidden group"
+    className="min-w-[320px] w-[320px] h-[260px]
+      bg-gradient-to-br from-black/90 via-purple-950/80 to-black/90
+      backdrop-blur-md border border-yellow-500/20 shadow-xl rounded-2xl
+      p-5 text-white relative overflow-hidden group"
   >
     {/* Glow on hover */}
     <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    <div className="relative z-10">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-purple-600 flex items-center justify-center text-sm font-bold text-white">
+
+    <div className="relative z-10 h-full flex flex-col">
+
+      {/* User + Rating */}
+      <div className="flex justify-between items-center flex-shrink-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-yellow-400 to-purple-600 flex items-center justify-center text-sm font-bold text-white">
             {getReviewerName(review).charAt(0).toUpperCase()}
           </div>
-          <h3 className="font-semibold text-yellow-300">{getReviewerName(review)}</h3>
+
+          <h3 className="font-semibold text-yellow-300 truncate">
+            {getReviewerName(review)}
+          </h3>
         </div>
-        <span className="text-yellow-400 text-sm">
+
+        <span className="text-yellow-400 text-sm flex-shrink-0 ml-2">
           {"⭐".repeat(review.rating || 5)}
         </span>
       </div>
-      <div className="mt-3 relative">
-        <span className="absolute -top-2 -left-1 text-4xl text-yellow-400/10 leading-none">"</span>
-        <p className="text-sm text-gray-300 italic pl-3 leading-relaxed">"{review.message}"</p>
+
+      {/* Review Message */}
+      <div className="mt-4 flex-1 min-h-0 overflow-y-auto pr-2 custom-scrollbar">
+        <p className="text-sm text-gray-300 italic pl-3 leading-relaxed break-words whitespace-normal">
+          "{review.message}"
+        </p>
       </div>
-      <div className="mt-4 flex items-center gap-2">
-        <span className="text-xs text-gray-500">Mode:</span>
+
+      {/* Mode */}
+      <div className="mt-4 flex items-center gap-2 flex-shrink-0">
+        <span className="text-xs text-gray-500">
+          Mode:
+        </span>
+
         <span className="px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/30 to-pink-500/30 text-purple-300 text-xs border border-purple-500/20">
           {review.mode === "Chat" ? "💬 Chat" : "🎧 Audio"}
         </span>
       </div>
+
     </div>
   </motion.div>
 );
+
 
 // ─── How It Works Step ───
 const HowItWorksCard = ({ step, icon, title, description, index }) => (
