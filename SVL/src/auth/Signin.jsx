@@ -35,9 +35,9 @@ const Signin = () => {
       );
 
       // Save sessionID so subsequent API calls use it via the interceptor
-      if (res.data?.sessionID) {
-        sessionStorage.setItem("sessionID", res.data.sessionID);
-      }
+      // if (res.data?.sessionID) {
+      //   sessionStorage.setItem("sessionID", res.data.sessionID);
+      // }
 
       // Accept the response if loggedIn flag is true OR any success indicator is present
       const loggedIn = res.data?.loggedIn || res.data?.data?.loggedIn || false;

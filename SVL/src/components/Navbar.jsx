@@ -88,7 +88,7 @@ useEffect(() => {
     try {
       await api.post("/v1/logout");
       // Clear the stored session ID
-      sessionStorage.removeItem("sessionID");
+      // sessionStorage.removeItem("sessionID");
       // Force full page reload so all components properly reset session state
       window.location.href = "/login";
     } catch (err) {
