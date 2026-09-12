@@ -16,44 +16,72 @@ export default function Navbar( { hideSignup = false }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await api.get("/v1/checkSession");
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     try {
+  //       const res = await api.get("/v1/checkSession");
 
-        // Handle various response structures the backend might return
-        const loggedIn = res.data?.loggedIn || false;
-        if (loggedIn) {
-          // Try multiple possible key names for user data
-          const userData = res.data.user || res.data.data || res.data.userData || res.data.profile || null;
-          const fallbackData = res.data.firstName || res.data.name || res.data.email ? res.data : null;
-          const effectiveUser = userData || fallbackData;
+  //       // Handle various response structures the backend might return
+  //       const loggedIn = res.data?.loggedIn || false;
+  //       if (loggedIn) {
+  //         // Try multiple possible key names for user data
+  //         const userData = res.data.user || res.data.data || res.data.userData || res.data.profile || null;
+  //         const fallbackData = res.data.firstName || res.data.name || res.data.email ? res.data : null;
+  //         const effectiveUser = userData || fallbackData;
 
-          if (effectiveUser) {
-            // Ensure role is available on the user object
-            if (!effectiveUser.role) {
-              // Try to get role from the top-level response
-              effectiveUser.role = res.data.role || res.data.data?.role || "user";
-            }
-            setUser(effectiveUser);
-          } else {
-            setUser(null);
-          }
-        } else {
-          setUser(null);
+  //         if (effectiveUser) {
+  //           // Ensure role is available on the user object
+  //           if (!effectiveUser.role) {
+  //             // Try to get role from the top-level response
+  //             effectiveUser.role = res.data.role || res.data.data?.role || "user";
+  //           }
+  //           setUser(effectiveUser);
+  //         } else {
+  //           setUser(null);
+  //         }
+  //       } else {
+  //         setUser(null);
+  //       }
+  //     } catch (err) {
+  //       console.error("Session check failed:", err);
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   checkSession();
+  // }, []);
+
+useEffect(() => {
+  const checkSession = async () => {
+    try {
+      const res = await api.get("/v1/checkSession", {
+        params: {
+          _: Date.now()
         }
-      } catch (err) {
-        console.error("Session check failed:", err);
+      });
+
+      console.log("NAVBAR SESSION:", res.data);
+
+      if (res.data?.loggedIn === true && res.data?.user) {
+        setUser(res.data.user);
+      } else {
         setUser(null);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error(
+        "Navbar session error:",
+        error.response?.data || error.message
+      );
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    checkSession();
-  }, []);
-
-
+  checkSession();
+}, []);
 
 
   const handleLogout = async () => {

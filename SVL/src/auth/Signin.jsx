@@ -16,7 +16,6 @@ const Signin = () => {
 
 
   const handleGoogleLogin = () => {
-  sessionStorage.removeItem("sessionID");
   window.location.href =
     "https://api-seekvialove.onrender.com/v1/auth/google";
 };
