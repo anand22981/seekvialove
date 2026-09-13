@@ -34,10 +34,13 @@ const Signin = () => {
         { emailId: email, password }
       );
 
-      // Save sessionID so subsequent API calls use it via the interceptor
-      // if (res.data?.sessionID) {
-      //   sessionStorage.setItem("sessionID", res.data.sessionID);
-      // }
+      // Save sessionID so subsequent API calls use it via the interceptor.
+      // This is critical for incognito/private mode where the session cookie
+      // gets blocked as a third-party cookie. The X-Session-Id header fallback
+      // keeps the session alive without relying on the cookie.
+      if (res.data?.sessionID) {
+        sessionStorage.setItem("sessionID", res.data.sessionID);
+      }
 
       // Accept the response if loggedIn flag is true OR any success indicator is present
       const loggedIn = res.data?.loggedIn || res.data?.data?.loggedIn || false;

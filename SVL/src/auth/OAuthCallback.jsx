@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import api from "../utils/api";
 
 const OAuthCallback = () => {
   const location = useLocation();
@@ -19,21 +19,45 @@ const OAuthCallback = () => {
       return;
     }
 
-    // The backend has already created the Express session.
-    // The browser should have received the seekvialove.sid cookie.
+    // The backend has already created the Express session via the Google
+    // callback redirect. The browser should have received the seekvialove.sid
+    // cookie, but in incognito/private mode third-party cookies may be blocked.
     //
-    // Do NOT store sessionID/token in sessionStorage.
-    // Axios will automatically send the session cookie because
-    // withCredentials: true is enabled.
+    // Poll /v1/checkSession to capture the sessionID via the X-Session-Id
+    // response header. The axios response interceptor will persist it to
+    // sessionStorage automatically.
+    let cancelled = false;
 
-    const redirectTo =
-      sessionStorage.getItem("redirectAfterLogin") || "/";
+    const pollSession = async () => {
+      try {
+        const res = await api.get("/v1/checkSession");
+        if (!cancelled && res.data?.loggedIn) {
+          setStatus("Signed in successfully...");
+          // sessionID is already persisted by the axios response interceptor
+        }
+      } catch (err) {
+        // Session may not be ready yet; retry
+        if (!cancelled) {
+          setTimeout(pollSession, 300);
+        }
+      }
+    };
 
-    sessionStorage.removeItem("redirectAfterLogin");
+    pollSession();
 
-    // Reload the application so Navbar/ProtectedRoute can
-    // call /v1/checkSession using the new session cookie.
-    window.location.href = redirectTo;
+    // Fallback: after a short delay, redirect even if polling failed.
+    // The session cookie may still arrive (non-incognito flows).
+    setTimeout(() => {
+      if (!cancelled) {
+        window.location.href =
+          sessionStorage.getItem("redirectAfterLogin") || "/";
+        sessionStorage.removeItem("redirectAfterLogin");
+      }
+    }, 3000);
+
+    return () => {
+      cancelled = true;
+    };
   }, [location.search]);
 
   return (
